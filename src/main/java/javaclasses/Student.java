@@ -49,7 +49,7 @@ class Student {
         this.group = group;
     }
 
-    private Student(StudentBuilder studentBuilder) {
+    protected Student(StudentBuilder studentBuilder) {
         this.id = studentBuilder.id;
         this.surname = studentBuilder.surname;
         this.name = studentBuilder.name;
@@ -60,74 +60,6 @@ class Student {
         this.faculty = studentBuilder.faculty;
         this.course = studentBuilder.course;
         this.group = studentBuilder.group;
-    }
-
-    public static class StudentBuilder {
-
-        private int id = 0;
-        private String surname = "....";
-        private String name = "....";
-        private String patronymic = "....";
-        private LocalDate dateOfBirth;
-        private String address = "....";
-        private String phone = "....";
-        private String faculty = "....";
-        private int course = 0;
-        private String group = "....";
-
-        public StudentBuilder setId(int id) {
-            this.id = id;
-            return this;
-        }
-
-        public StudentBuilder setSurname(String surname) {
-            this.surname = surname;
-            return this;
-        }
-
-        public StudentBuilder setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public StudentBuilder setPatronymic(String patronymic) {
-            this.patronymic = patronymic;
-            return this;
-        }
-
-        public StudentBuilder setDateOfBirth(LocalDate dateOfBirth) {
-            this.dateOfBirth = dateOfBirth;
-            return this;
-        }
-
-        public StudentBuilder setAddress(String address) {
-            this.address = address;
-            return this;
-        }
-
-        public StudentBuilder setPhone(String phone) {
-            this.phone = phone;
-            return this;
-        }
-
-        public StudentBuilder setFaculty(String faculty) {
-            this.faculty = faculty;
-            return this;
-        }
-
-        public StudentBuilder setCourse(int course) {
-            this.course = course;
-            return this;
-        }
-
-        public StudentBuilder setGroup(String group) {
-            this.group = group;
-            return this;
-        }
-
-        public Student build() {
-            return new Student(this);
-        }
     }
 
     public int getId() {

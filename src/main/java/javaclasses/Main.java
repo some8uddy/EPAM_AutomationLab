@@ -1,7 +1,5 @@
 package javaclasses;
 
-import javaclasses.Student.StudentBuilder;
-
 import java.time.LocalDate;
 import java.util.Random;
 
