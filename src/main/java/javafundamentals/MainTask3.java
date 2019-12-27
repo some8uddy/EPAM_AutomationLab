@@ -15,7 +15,7 @@ public class MainTask3 {
             for (int i = 0; i <= count; i++) {
                 System.out.print("[" + i + "] " + Math.random() + " ");
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println("Пожалуйста перезапустите программу," +
                 " используя целое число в качестве аргумента командной строки.");
         }

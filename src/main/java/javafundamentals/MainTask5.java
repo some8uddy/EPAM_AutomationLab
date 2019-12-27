@@ -6,16 +6,17 @@ package javafundamentals;
 public class MainTask5 {
 
     public static void main(String[] args) {
-        try {
-            System.out.println("Месяц " + getMonth(args) + ".");
-        } catch (Exception e) {
-            System.out.println("Пожалуйста перезапустите программу," +
-                " используя целое число от 1 до 12 в качестве аргумента командной строки.");
+        if (args.length != 0) {
+            try {
+                System.out.println("Месяц " + getMonth(args) + ".");
+            } catch (NumberFormatException e) {
+                System.out.println("Пожалуйста перезапустите программу," +
+                    " используя целое число от 1 до 12 в качестве аргумента командной строки.");
+            }
         }
-
     }
 
-    static String getMonth(String[] args) throws Exception {
+    static String getMonth(String[] args) throws NumberFormatException {
         String[] months = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август",
             "Сентябрь",
             "Октябрь", "Ноябрь", "Декабрь"};

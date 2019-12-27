@@ -67,7 +67,7 @@ public class OptionalTask1_1 {
         try {
             Double.parseDouble(str);
             return true;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }

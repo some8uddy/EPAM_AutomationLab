@@ -9,14 +9,14 @@ public class MainTask4 {
         try {
             System.out.println("Сумма чисел: " + getSum(args));
             System.out.println("Произведение чисел: " + getProduct(args));
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println("Пожалуйста перезапустите программу," +
                 " используя целые числа в качестве аргументов командной строки.");
         }
 
     }
 
-    static Integer getSum(String[] args) throws Exception {
+    static Integer getSum(String[] args) throws NumberFormatException {
         int sum = Integer.parseInt(args[0]);
 
         for (int i = 1; i < args.length; i++) {
@@ -25,7 +25,7 @@ public class MainTask4 {
         return sum;
     }
 
-    static Integer getProduct(String[] args) throws Exception {
+    static Integer getProduct(String[] args) throws NumberFormatException {
         int product = Integer.parseInt(args[0]);
         for (int i = 1; i < args.length; i++) {
             product *= Integer.parseInt(args[i]);
