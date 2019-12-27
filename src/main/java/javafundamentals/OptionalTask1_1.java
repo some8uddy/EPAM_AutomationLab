@@ -40,27 +40,18 @@ public class OptionalTask1_1 {
     }
 
     static String getShortest(String[] strings) {
-        String result =
-            "                                                                                         "
-                +
-                "                                                                                                   "
-                +
-                "                                                                                                   "
-                +
-                "                                                                                                   "
-                +
-                "                                                                                                   "
-                +
-                "                                                                                                   ";
-        for (int i = 0; i < strings.length; i++) {
-            String nextRec = strings[i].trim();
-            if (isNumeric(nextRec)) {
-                if (nextRec.length() < result.length()) {
-                    result = nextRec;
+        if (strings.length > 0) {
+            String result = strings[0].trim();
+            for (int i = 1; i < strings.length; i++) {
+                String nextRec = strings[i].trim();
+                if (isNumeric(nextRec)) {
+                    if (nextRec.length() < result.length()) {
+                        result = nextRec;
+                    }
                 }
             }
-        }
-        return result;
+            return result;
+        } else return null;
     }
 
     static boolean isNumeric(String str) {
