@@ -2,9 +2,13 @@ package stage2exceptions;
 
 import org.junit.Test;
 import stage2exceptions.exceptions.NoDisciplinesException;
-import java.util.HashSet;
 
-import static org.junit.Assert.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class StudentTest {
 
@@ -12,16 +16,23 @@ public class StudentTest {
     public void whenExceptionThrown_thenExpectationSatisfied() throws NoDisciplinesException {
         new Student("Name", "Surname", null, null).getDisciplines();
         new Student("Name", "Surname", null, null)
-                .removeDiscipline(new Discipline("Bio"));
+            .removeDiscipline(new Discipline("Bio"));
         new Student("Name", "Surname", new HashSet<>(), null).getDisciplines();
         new Student("Name", "Surname", new HashSet<>(), null)
-                .removeDiscipline(new Discipline("Bio"));
+            .removeDiscipline(new Discipline("Bio"));
     }
 
     @Test
     public void testEquals() {
         assertNotEquals(new Student("Name", null, null, null),
-                    new Student("Name", null, null, null));
+            new Student("Name", null, null, null));
+        Set<Student> students =
+            new HashSet<>(Arrays.asList(
+                new Student(null, null, null, null),
+                new Student(null, null, null, null),
+                new Student(null, null, null, null)
+            ));
+        assertEquals(3, students.size());
     }
 
 }
