@@ -40,6 +40,18 @@ public class Faculty {
         this.groups = groups;
     }
 
+    public Group getGroupByName(String name) throws NoGroupsOnFacultyException {
+        if (groups == null || groups.isEmpty()) {
+            throw new NoGroupsOnFacultyException("There is no groups for " + name + " faculty set.");
+        }
+        for (Group group : groups) {
+            if (group.getName().equals(name)) {
+                return group;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,5 +63,10 @@ public class Faculty {
     @Override
     public int hashCode() {
         return Objects.hash(getName());
+    }
+
+    @Override
+    public String toString() {
+        return "\n- " + name + " faculty:" + groups;
     }
 }

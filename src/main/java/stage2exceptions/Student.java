@@ -2,9 +2,7 @@ package stage2exceptions;
 
 import stage2exceptions.exceptions.NoDisciplinesException;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Student {
     private static int counter = 0;
@@ -69,6 +67,18 @@ public class Student {
         this.academicPerformance = academicPerformance;
     }
 
+    public double getAverageMark() {
+        List<Integer> marks = new ArrayList<>();
+        for (Map.Entry<Discipline, Marks> entry : academicPerformance.entrySet()) {
+            marks.addAll(entry.getValue().getMarks());
+        }
+        int sum = 0;
+        for (Integer i : marks) {
+            sum += i;
+        }
+        return (double) sum / marks.size();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,5 +90,13 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "\n    Student id=" +
+            id +
+            ", name " + name +
+            academicPerformance;
     }
 }

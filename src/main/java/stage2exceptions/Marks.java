@@ -35,4 +35,9 @@ public class Marks {
         }
         this.marks.add(mark);
     }
+
+    @Override
+    public String toString() {
+        return "" + marks;
+    }
 }

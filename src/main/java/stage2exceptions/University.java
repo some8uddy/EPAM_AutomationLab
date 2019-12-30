@@ -48,4 +48,21 @@ public class University {
     public void setDisciplines(Set<Discipline> disciplines) {
         this.disciplines = disciplines;
     }
+
+    public Faculty getFacultyByName(String name) throws NoFacultiesException {
+        if (faculties == null || faculties.isEmpty()) {
+            throw new NoFacultiesException("There is no faculties in " + name + " University.");
+        }
+        for (Faculty faculty : faculties) {
+            if (faculty.getName().equals(name)) {
+                return faculty;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return name + " University:" + faculties;
+    }
 }

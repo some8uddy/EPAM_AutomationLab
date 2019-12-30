@@ -17,8 +17,19 @@ public class FacultyTest {
     public void whenExceptionThrown_thenExpectationSatisfied() throws NoGroupsOnFacultyException {
         new Faculty("Name", null).getGroups();
         new Faculty("Name", null).removeGroup(new Group("SomeName", new HashSet<>()));
+        new Faculty("Name", null).getGroupByName("SomeName");
         new Faculty("Name", new HashSet<>()).getGroups();
         new Faculty("Name", new HashSet<>()).removeGroup(new Group("SomeName", new HashSet<>()));
+        new Faculty("Name", new HashSet<>()).getGroupByName("SomeName");
+    }
+
+    @Test
+    public void testGetGroupByName() throws NoGroupsOnFacultyException {
+        String groupName = "EE-1";
+        String facultyName = "Science";
+        Group testGroup = new Group(groupName, null);
+        Faculty faculty = new Faculty(facultyName,new HashSet<>(Arrays.asList(testGroup)));
+        assertEquals(testGroup, faculty.getGroupByName(groupName));
     }
 
     @Test

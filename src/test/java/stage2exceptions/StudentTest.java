@@ -1,11 +1,10 @@
 package stage2exceptions;
 
 import org.junit.Test;
+import stage2exceptions.exceptions.GradeOutOfBoundsException;
 import stage2exceptions.exceptions.NoDisciplinesException;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -35,4 +34,12 @@ public class StudentTest {
         assertEquals(3, students.size());
     }
 
+    @Test
+    public void getAverageMark() throws GradeOutOfBoundsException {
+        Map<Discipline, Marks> academicPerformance = new HashMap<>();
+        academicPerformance.put(new Discipline("Mathematics"), new Marks(Arrays.asList(1,2,3,4,5,6)));
+        academicPerformance.put(new Discipline("Physics"), new Marks(Arrays.asList(10,9,8,7,6,5)));
+        Student student = new Student("Bob","",null, academicPerformance);
+        assertEquals(5.5, student.getAverageMark(), 0.001);
+    }
 }

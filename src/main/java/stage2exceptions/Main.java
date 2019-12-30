@@ -1,8 +1,27 @@
 package stage2exceptions;
 
 import stage2exceptions.exceptions.GradeOutOfBoundsException;
+import stage2exceptions.exceptions.NoFacultiesException;
+import stage2exceptions.exceptions.NoGroupsOnFacultyException;
+import stage2exceptions.exceptions.NoStudentsInGroupException;
 
 import java.util.*;
+
+//    В университете есть несколько факультетов, в которых учатся студенты, объединенные в группы.
+//    У каждого студента есть несколько учебных предметов по которым он получает оценки.
+//    Необходимо реализовать иерархию студентов, групп и факультетов.
+//
+//    Посчитать средний балл по всем предметам студента
+//    Посчитать средний балл по конкретному предмету в конкретной группе и на конкретном факультете
+//    Посчитать средний балл по предмету для всего университета
+//
+//    Релизовать следующие исключения:
+//
+//    Оценка ниже 0 или выше 10
+//    Отсутсвие предметов у студента (должен быть хотя бы один)
+//    Отсутствие студентов в группе
+//    Отсутствие групп на факультете
+//    Отсутствие факультетов в университете
 
 public class Main {
     private static Set<Discipline> disciplines = new HashSet<>(Arrays.asList(
@@ -12,32 +31,113 @@ public class Main {
         new Discipline("Physics")
     ));
 
+    private static List<String> facultyNames = new ArrayList<>(
+        Arrays.asList("Electrical Engineering", "Science", "Petrochemical Engineering"));
+
     public static void main(String[] args) {
-        University university = setUp();
+
+        //Посчитать средний балл по всем предметам студента
+        getAverageMarksForStudent("Bob");
+
+        //Посчитать средний балл по конкретному предмету в конкретной группе и на конкретном факультете
+        String facultyName = "Science";
+        String groupName = "SC-1";
+        Discipline discipline = new Discipline("Biology");
+        int groupCount = 2;
+        int groupSize = 3;
+        University university = getSomeUniversity(groupCount, groupSize);
+        System.out.println(university);
+        getAverageMarksByFacultyGroupDiscipline(university, facultyName, groupName, discipline);
+
+
+        //Посчитать средний балл по предмету для всего университета
+        groupCount = 1;
+        groupSize = 1;
+        discipline = new Discipline("Biology");
+        university = getSomeUniversity(groupCount, groupSize);
+        System.out.println(university);
+        getAverageMarksByDisciplineForEntireUniversity(university, discipline);
     }
 
-    private static University setUp() {
-
-
-        Set<Faculty> faculties = new HashSet<>(Arrays.asList(
-            new Faculty("Electrical Engineering", null),
-            new Faculty("Science", null),
-            new Faculty("Petrochemical Engineering", null)
-        ));
-        University university = new University("Caltech", faculties, disciplines);
-        return null;
+    private static void getAverageMarksByDisciplineForEntireUniversity(University university, Discipline discipline) {
+        List<Integer> marks = new ArrayList<>();
+        try {
+            for (Faculty faculty : university.getFaculties()) {
+                try {
+                    for (Group group : faculty.getGroups()) {
+                        try {
+                            marks.addAll(group.getMarksByDiscipline(discipline));
+                        } catch (NoStudentsInGroupException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } catch (NoGroupsOnFacultyException e) {
+                    e.printStackTrace();
+                }
+            }
+            int sum = 0;
+            for (Integer i : marks) {
+                sum += i;
+            }
+            System.out.printf("\nAverage mark for %s discipline for entire university is %.2f\n",
+                discipline, (double) sum / marks.size());
+            System.out.println("-----------------------------------------------------------------------------------\n");
+        } catch (NoFacultiesException e) {
+            e.printStackTrace();
+        }
     }
 
-    private static Set<Group> getGroups(String namePrefix, int groupCount, int groupSize) {
+    private static void getAverageMarksByFacultyGroupDiscipline(University university, String facultyName,
+                                                                String groupName, Discipline discipline) {
+        try {
+            List<Integer> marks;
+            marks = university.getFacultyByName(facultyName).getGroupByName(groupName).
+                getMarksByDiscipline(discipline);
+            int sum = 0;
+            for (Integer i : marks) {
+                sum += i;
+            }
+            System.out.printf("\nAverage mark for %s discipline for group %s on %s faculty is %.2f\n",
+                discipline, groupName, facultyName, (double) sum / marks.size());
+            System.out.println("-----------------------------------------------------------------------------------\n");
+        } catch (NoStudentsInGroupException | NoGroupsOnFacultyException | NoFacultiesException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void getAverageMarksForStudent(String name) {
+        Student student = new Student(name, "", null, getRandomMarks());
+        System.out.printf("\nStudent %s has following getAcademicPerformance:\n    %s",
+            student.getName(),
+            student.getAcademicPerformance().toString());
+        System.out.printf("\nHis average mark is %.2f\n", student.getAverageMark());
+        System.out.println("-----------------------------------------------------------------------------------\n");
+    }
+
+    protected static University getSomeUniversity(int groupCount, int groupSize) {
+        String universityName = "Caltech";
+        return new University(universityName, getSomeFaculties(facultyNames, groupCount, groupSize), disciplines);
+    }
+
+    protected static Set<Faculty> getSomeFaculties(List<String> facultyNames, int groupCount, int groupSize) {
+        Set<Faculty> faculties = new HashSet<>();
+        for (String name : facultyNames) {
+            String namePrefix = name.substring(0, 2).toUpperCase() + "-";
+            faculties.add(new Faculty(name, getSomeGroups(namePrefix, groupCount, groupSize)));
+        }
+        return faculties;
+    }
+
+    protected static Set<Group> getSomeGroups(String namePrefix, int groupCount, int groupSize) {
         Set<Group> groups = new HashSet<>();
         for (int i = 1; i < groupCount + 1; i++) {
             String groupName = namePrefix + i;
-            groups.add(new Group(groupName, getStudents(groupSize)));
+            groups.add(new Group(groupName, getSomeStudents(groupSize)));
         }
         return groups;
     }
 
-    private static Set<Student> getStudents(int groupSize) {
+    protected static Set<Student> getSomeStudents(int groupSize) {
         Set<Student> students = new HashSet<>();
         for (int i = 0; i < groupSize; i++) {
             students.add(new Student("...", "...", disciplines, getRandomMarks()));
@@ -64,24 +164,5 @@ public class Main {
         }
         return marks;
     }
-//
-//        for (int i = 0; i < 200; i++) {
-//            int rnd = random.nextInt(900000);
-//            int id = rnd + 100000;
-//            String faculty = faculties[rnd % faculties.length];
-//            int course = rnd % 5 + 1;
-//            String group = faculty.charAt(0) + "-" + course + 1;
-//
-//
-//            StudentBuilder studentBuilder;
-//            studentBuilder = new StudentBuilder()
-//                .setId(id)
-//                .setFaculty(faculty)
-//                .setGroup(group)
-//                .setCourse(course)
-//                .setDateOfBirth(dob);
-//
-//            students[i] = studentBuilder.build();
-
 }
 

@@ -2,8 +2,7 @@ package stage2exceptions;
 
 import stage2exceptions.exceptions.NoStudentsInGroupException;
 
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Group {
     private String name;
@@ -40,6 +39,22 @@ public class Group {
         this.students = students;
     }
 
+    public List<Integer> getMarksByDiscipline(Discipline discipline) throws NoStudentsInGroupException {
+        if (students == null || students.isEmpty()) {
+            throw new NoStudentsInGroupException("There is no students for " + name + " group set.");
+        }
+        List<Integer> marksList = new ArrayList<>();
+        for (Student s : students) {
+            Map<Discipline, Marks> academicPerformance = s.getAcademicPerformance();
+            for (Map.Entry<Discipline, Marks> entry : academicPerformance.entrySet()) {
+                if (entry.getKey().equals(discipline)) {
+                    marksList.addAll(entry.getValue().getMarks());
+                }
+            }
+        }
+        return marksList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,5 +66,10 @@ public class Group {
     @Override
     public int hashCode() {
         return Objects.hash(getName());
+    }
+
+    @Override
+    public String toString() {
+        return "\n----Group " + name + ":" + students;
     }
 }
