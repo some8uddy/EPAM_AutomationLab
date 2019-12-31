@@ -1,0 +1,89 @@
+.\src
+|---main
+|    |---java
+|    |    |---stage1
+|    |    |    |---aircompany
+|    |    |    |    |---Airport.java
+|    |    |    |    |---models
+|    |    |    |    |    |---ClassificationLevel.java
+|    |    |    |    |    |---ExperimentalTypes.java
+|    |    |    |    |    |---MilitaryType.java
+|    |    |    |    |---planes
+|    |    |    |    |    |---AbstractPlane.java
+|    |    |    |    |    |---ExperimentalPlane.java
+|    |    |    |    |    |---MilitaryPlane.java
+|    |    |    |    |    |---PassengerPlane.java
+|    |    |    |    |---Runner.java
+|    |    |    |---javaclasses
+|    |    |    |    |---Main.java
+|    |    |    |    |---Student.java
+|    |    |    |    |---StudentBuilder.java
+|    |    |    |---javacollections
+|    |    |    |    |---maintask
+|    |    |    |    |    |---BarsSweets.java
+|    |    |    |    |    |---BulkSweets.java
+|    |    |    |    |    |---Gift.java
+|    |    |    |    |    |---Main.java
+|    |    |    |    |    |---Sweets.java
+|    |    |    |    |---optionaltasks
+|    |    |    |    |    |---OptionalTask1.java
+|    |    |    |    |    |---OptionalTask2.java
+|    |    |    |    |    |---OptionalTask3.java
+|    |    |    |    |    |---OptionalTask4.java
+|    |    |    |    |    |---OptionalTask5.java
+|    |    |    |---javafundamentals
+|    |    |    |    |---MainTask1.java
+|    |    |    |    |---MainTask2.java
+|    |    |    |    |---MainTask3.java
+|    |    |    |    |---MainTask4.java
+|    |    |    |    |---MainTask5.java
+|    |    |    |    |---OptionalTask1_1.java
+|    |    |    |    |---OptionalTask1_2.java
+|    |    |    |    |---OptionalTask1_3.java
+|    |    |---stage2
+|    |    |    |---exceptions
+|    |    |    |    |---customexceptions
+|    |    |    |    |    |---GradeOutOfBoundsException.java
+|    |    |    |    |    |---NoDisciplinesException.java
+|    |    |    |    |    |---NoFacultiesException.java
+|    |    |    |    |    |---NoGroupsOnFacultyException.java
+|    |    |    |    |    |---NoStudentsInGroupException.java
+|    |    |    |    |---Discipline.java
+|    |    |    |    |---Faculty.java
+|    |    |    |    |---Group.java
+|    |    |    |    |---Main.java
+|    |    |    |    |---Marks.java
+|    |    |    |    |---Student.java
+|    |    |    |    |---University.java
+|    |    |    |---io
+|    |    |    |    |---treeToFile.java
+|    |---resources
+|    |    |---OptionalTask1Data.txt
+|    |    |---Stage2IoTreeToFileOutput.txt
+|---test
+|    |---java
+|    |    |---stage1
+|    |    |    |---aircompany
+|    |    |    |    |---AirportTest.java
+|    |    |    |---javacollections
+|    |    |    |    |---maintask
+|    |    |    |    |    |---BarsSweetsTest.java
+|    |    |    |    |    |---BulkSweetsTest.java
+|    |    |    |    |    |---GiftTest.java
+|    |    |    |---javafundamentals
+|    |    |    |    |---MainTask1Test.java
+|    |    |    |    |---MainTask2Test.java
+|    |    |    |    |---MainTask4Test.java
+|    |    |    |    |---MainTask5Test.java
+|    |    |    |    |---OptionalTask1_1Test.java
+|    |    |    |    |---OptionalTask1_2Test.java
+|    |    |    |    |---OptionalTask1_3Test.java
+|    |    |---stage2
+|    |    |    |---exceptions
+|    |    |    |    |---DisciplineTest.java
+|    |    |    |    |---FacultyTest.java
+|    |    |    |    |---GroupTest.java
+|    |    |    |    |---MainTest.java
+|    |    |    |    |---MarksTest.java
+|    |    |    |    |---StudentTest.java
+|    |    |    |    |---UniversityTest.java
