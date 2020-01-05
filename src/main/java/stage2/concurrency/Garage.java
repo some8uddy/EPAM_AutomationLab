@@ -28,7 +28,7 @@ public class Garage {
         }
         if (!exceededWaitingTime(car)) {
             isEntreeAllowed = false;
-            System.out.printf("%s was parked in the garage, there is %d spots available:%n", car.getName(), --roomAvailable);
+            System.out.printf("%s was parked in the garage, there are %d spots available:%n", car.getName(), --roomAvailable);
             if (hasRoomAvailable()) {
                 isEntreeAllowed = true;
             }
@@ -43,7 +43,7 @@ public class Garage {
     }
 
     public synchronized void leaveGarage(Car car) {
-        System.out.printf("%n%s has left the garage, there is %d spots available:%n",
+        System.out.printf("%n%s has left the garage, there are %d spots available:%n",
             car.getName(), ++roomAvailable);
         isEntreeAllowed = true;
         this.notify();
