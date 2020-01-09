@@ -22,16 +22,12 @@ public class Group {
     }
 
     public Set<Student> getStudents() throws NoStudentsInGroupException {
-        if (students == null || students.isEmpty()) {
-            throw new NoStudentsInGroupException("There is no students for " + name + " group set.");
-        }
+        assureStudentsExistence();
         return students;
     }
 
     public boolean removeStudent(Student student) throws NoStudentsInGroupException {
-        if (students == null || students.isEmpty()) {
-            throw new NoStudentsInGroupException("There is no students for " + name + " group set.");
-        }
+        assureStudentsExistence();
         return students.remove(student);
     }
 
@@ -39,10 +35,15 @@ public class Group {
         this.students = students;
     }
 
+    /**
+     * Returns a list with marks for specified discipline.
+     *
+     * @param discipline the discipline for which marks are returned.
+     * @return a List<Integer> with marks for specified discipline.
+     * @throws NoStudentsInGroupException if there are no students for this group set.
+     */
     public List<Integer> getMarksByDiscipline(Discipline discipline) throws NoStudentsInGroupException {
-        if (students == null || students.isEmpty()) {
-            throw new NoStudentsInGroupException("There is no students for " + name + " group set.");
-        }
+        assureStudentsExistence();
         List<Integer> marksList = new ArrayList<>();
         for (Student s : students) {
             Map<Discipline, Marks> academicPerformance = s.getAcademicPerformance();
@@ -53,6 +54,17 @@ public class Group {
             }
         }
         return marksList;
+    }
+
+    /**
+     * Checks if there are any students associated with this group.
+     *
+     * @throws NoStudentsInGroupException if there are no students for this group set.
+     */
+    private void assureStudentsExistence() throws NoStudentsInGroupException {
+        if (students == null || students.isEmpty()) {
+            throw new NoStudentsInGroupException("There is no students for " + name + " group set.");
+        }
     }
 
     @Override
