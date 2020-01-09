@@ -42,16 +42,12 @@ public class Student {
     }
 
     public Set<Discipline> getDisciplines() throws NoDisciplinesException {
-        if (disciplines == null || disciplines.isEmpty()) {
-            throw new NoDisciplinesException("There is no disciplines for " + name + " student set.");
-        }
+        assureDisciplinesExistence();
         return disciplines;
     }
 
     public boolean removeDiscipline(Discipline discipline) throws NoDisciplinesException {
-        if (disciplines == null || disciplines.isEmpty()) {
-            throw new NoDisciplinesException("There is no disciplines for " + name + " student set.");
-        }
+        assureDisciplinesExistence();
         return disciplines.remove(discipline);
     }
 
@@ -77,6 +73,12 @@ public class Student {
             sum += i;
         }
         return (double) sum / marks.size();
+    }
+
+    private void assureDisciplinesExistence() throws NoDisciplinesException {
+        if (disciplines == null || disciplines.isEmpty()) {
+            throw new NoDisciplinesException("There is no disciplines for " + name + " student set.");
+        }
     }
 
     @Override
