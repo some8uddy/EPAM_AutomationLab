@@ -23,16 +23,12 @@ public class Faculty {
     }
 
     public Set<Group> getGroups() throws NoGroupsOnFacultyException {
-        if (groups == null || groups.isEmpty()) {
-            throw new NoGroupsOnFacultyException("There is no groups for " + name + " faculty set.");
-        }
+        assureGroupsExistence();
         return groups;
     }
 
     public boolean removeGroup(Group group) throws NoGroupsOnFacultyException {
-        if (groups == null || groups.isEmpty()) {
-            throw new NoGroupsOnFacultyException("There is no groups for " + name + " faculty set.");
-        }
+        assureGroupsExistence();
         return groups.remove(group);
     }
 
@@ -41,15 +37,19 @@ public class Faculty {
     }
 
     public Group getGroupByName(String name) throws NoGroupsOnFacultyException {
-        if (groups == null || groups.isEmpty()) {
-            throw new NoGroupsOnFacultyException("There is no groups for " + name + " faculty set.");
-        }
+        assureGroupsExistence();
         for (Group group : groups) {
             if (group.getName().equals(name)) {
                 return group;
             }
         }
         return null;
+    }
+
+    private void assureGroupsExistence() throws NoGroupsOnFacultyException {
+        if (groups == null || groups.isEmpty()) {
+            throw new NoGroupsOnFacultyException("There is no groups for " + name + " faculty set.");
+        }
     }
 
     @Override
