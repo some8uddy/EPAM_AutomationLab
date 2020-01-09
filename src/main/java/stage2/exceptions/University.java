@@ -24,16 +24,12 @@ public class University {
     }
 
     public Set<Faculty> getFaculties() throws NoFacultiesException {
-        if (faculties == null || faculties.isEmpty()) {
-            throw new NoFacultiesException("There is no faculties in " + name + " University.");
-        }
+        assureFacultiesExistence();
         return faculties;
     }
 
     public boolean removeFaculty(Faculty faculty) throws NoFacultiesException {
-        if (faculties == null || faculties.isEmpty()) {
-            throw new NoFacultiesException("There is no faculties in " + name + " University.");
-        }
+        assureFacultiesExistence();
         return faculties.remove(faculty);
     }
 
@@ -50,15 +46,19 @@ public class University {
     }
 
     public Faculty getFacultyByName(String name) throws NoFacultiesException {
-        if (faculties == null || faculties.isEmpty()) {
-            throw new NoFacultiesException("There is no faculties in " + name + " University.");
-        }
+        assureFacultiesExistence();
         for (Faculty faculty : faculties) {
             if (faculty.getName().equals(name)) {
                 return faculty;
             }
         }
         return null;
+    }
+
+    private void assureFacultiesExistence() throws NoFacultiesException {
+        if (faculties == null || faculties.isEmpty()) {
+            throw new NoFacultiesException("There is no faculties in " + name + " University.");
+        }
     }
 
     @Override
