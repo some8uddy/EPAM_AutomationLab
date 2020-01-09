@@ -9,9 +9,7 @@ public class Marks {
 
     public Marks(List<Integer> marks) throws GradeOutOfBoundsException {
         for (Integer i : marks) {
-            if ((i < 0) || (i > 10)) {
-                throw new GradeOutOfBoundsException("Grade should be a number from 0 to 10, but " + i + " found.");
-            }
+            assureMarkIsCorrect(i);
         }
         this.marks = marks;
     }
@@ -22,18 +20,20 @@ public class Marks {
 
     public void setMarks(List<Integer> marks) throws GradeOutOfBoundsException {
         for (Integer i : marks) {
-            if ((i < 0) || (i > 10)) {
-                throw new GradeOutOfBoundsException("Grade should be a number from 0 to 10, but " + i + " found.");
-            }
+            assureMarkIsCorrect(i);
         }
         this.marks = marks;
     }
 
     public void addMark(int mark) throws GradeOutOfBoundsException {
+        assureMarkIsCorrect(mark);
+        this.marks.add(mark);
+    }
+
+    private void assureMarkIsCorrect(Integer mark) throws GradeOutOfBoundsException {
         if ((mark < 0) || (mark > 10)) {
             throw new GradeOutOfBoundsException("Grade should be a number from 0 to 10, but " + mark + " found.");
         }
-        this.marks.add(mark);
     }
 
     @Override
