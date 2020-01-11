@@ -63,6 +63,12 @@ public class Student {
         this.academicPerformance = academicPerformance;
     }
 
+    /**
+     * Returns average student's mark.
+     * Method adds all the student's marks in all his disciplines and divides the sum by the number of marks.
+     *
+     * @return average student's mark.
+     */
     public double getAverageMark() {
         List<Integer> marks = new ArrayList<>();
         for (Map.Entry<Discipline, Marks> entry : academicPerformance.entrySet()) {

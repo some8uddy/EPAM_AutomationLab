@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
+
 
 public class UniversityUtilTest {
 
@@ -13,6 +15,12 @@ public class UniversityUtilTest {
         new Discipline("Geology"),
         new Discipline("Physics")
     ));
+
+    @Test
+    public void testGetAverageMark() {
+        assertEquals(3, UniversityUtil.getAverageMark(Arrays.asList(1, 2, 3, 4, 5)), 0.01);
+        assertEquals(0, UniversityUtil.getAverageMark(Arrays.asList(-1, 1, -2, 2)), 0.01);
+    }
 
     @Test
     public void testGetRandomMarks() {
@@ -36,7 +44,7 @@ public class UniversityUtilTest {
     @Test
     public void testGetRandomGroups() {
         System.out.print("\nTestGetSomeGroups results:\n----------------------------------");
-        Set<Group> groups = UniversityUtil.getRandomGroups("EE-", 3,5, disciplines );
+        Set<Group> groups = UniversityUtil.getRandomGroups("EE-", 3, 5, disciplines);
         for (Group g : groups) {
             System.out.println(g);
         }

@@ -9,30 +9,24 @@ import java.util.*;
 
 public class UniversityUtil {
 
-    static void printAverageMarksByDisciplineForEntireUniversity(University university, Discipline discipline) {
+    /**
+     * Prints to console the average mark by given discipline for entire university.
+     *
+     * @param university university where average mark is computed.
+     * @param discipline discipline for which average mark is computed.
+     */
+    static void printAverageMarkByDisciplineForEntireUniversity(University university, Discipline discipline) {
         List<Integer> marks = new ArrayList<>();
         try {
             for (Faculty faculty : university.getFaculties()) {
-                try {
-                    for (Group group : faculty.getGroups()) {
-                        try {
-                            marks.addAll(group.getMarksByDiscipline(discipline));
-                        } catch (NoStudentsInGroupException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } catch (NoGroupsOnFacultyException e) {
-                    e.printStackTrace();
+                for (Group group : faculty.getGroups()) {
+                    marks.addAll(group.getMarksByDiscipline(discipline));
                 }
             }
-            int sum = 0;
-            for (Integer i : marks) {
-                sum += i;
-            }
-            System.out.printf("\nAverage mark for %s discipline for entire university is %.2f\n",
-                discipline, (double) sum / marks.size());
-            System.out.println("-----------------------------------------------------------------------------------\n");
-        } catch (NoFacultiesException e) {
+
+            System.out.printf("%nAverage mark for %s discipline for entire university is %.2f%n%s%n",
+                discipline, getAverageMark(marks), getLine());
+        } catch (NoStudentsInGroupException | NoGroupsOnFacultyException | NoFacultiesException e) {
             e.printStackTrace();
         }
     }
@@ -43,13 +37,9 @@ public class UniversityUtil {
             List<Integer> marks;
             marks = university.getFacultyByName(facultyName).getGroupByName(groupName).
                 getMarksByDiscipline(discipline);
-            int sum = 0;
-            for (Integer i : marks) {
-                sum += i;
-            }
-            System.out.printf("\nAverage mark for %s discipline for group %s on %s faculty is %.2f\n",
-                discipline, groupName, facultyName, (double) sum / marks.size());
-            System.out.println("-----------------------------------------------------------------------------------\n");
+
+            System.out.printf("%nAverage mark for %s discipline for group %s on %s faculty is %.2f%n%s%n",
+                discipline, groupName, facultyName, getAverageMark(marks), getLine());
         } catch (NoStudentsInGroupException | NoGroupsOnFacultyException | NoFacultiesException e) {
             e.printStackTrace();
         }
@@ -57,12 +47,26 @@ public class UniversityUtil {
 
     static void printAverageMarksForStudent(Student student) {
         System.out.println(String.format("%nStudent %s has following academic performance:%n" +
-                "    %s%n" +
-                "His average mark is %.2f%n" +
-                "-----------------------------------------------------------------------------------%n",
+                "\t%s%n" +
+                "" +
+                "%nStudent's average mark is %.2f%n" +
+                getLine(),
             student.getName(),
             student.getAcademicPerformance().toString(),
             student.getAverageMark()));
+    }
+
+    protected static String getLine() {
+        return "______________________________________________________________________________" +
+            "______________________________________________________________________________";
+    }
+
+    protected static double getAverageMark(List<Integer> marks) {
+        int sum = 0;
+        for (Integer i : marks) {
+            sum += i;
+        }
+        return (double) sum / marks.size();
     }
 
     /**
@@ -72,9 +76,9 @@ public class UniversityUtil {
      * Each student has random marks assigned, however disciplines are the same for all students.
      *
      * @param facultyNames list of faculty names.
-     * @param groupCount count of groups at each faculty.
-     * @param groupSize count of students in each group.
-     * @param disciplines set of disciplines for which random marks are generated.
+     * @param groupCount   count of groups at each faculty.
+     * @param groupSize    count of students in each group.
+     * @param disciplines  set of disciplines for which random marks are generated.
      * @return university with specified faculties having groups and students with marks assigned.
      */
     protected static University getRandomUniversity(String universityName,
@@ -93,10 +97,11 @@ public class UniversityUtil {
      * Group count is equal for each faculty.
      * Student count is equal for each group.
      * Each student has random marks assigned, however disciplines are the same for all students.
+     *
      * @param facultyNames list of faculty names.
-     * @param groupCount count of groups at each faculty.
-     * @param groupSize count of students in each group.
-     * @param disciplines set of disciplines for which random marks are generated.
+     * @param groupCount   count of groups at each faculty.
+     * @param groupSize    count of students in each group.
+     * @param disciplines  set of disciplines for which random marks are generated.
      * @return set of specified size with faculties having groups and students with marks assigned.
      */
     protected static Set<Faculty> getRandomFaculties(List<String> facultyNames,
@@ -118,9 +123,9 @@ public class UniversityUtil {
      * Student count is equal for each group.
      * Each student has random marks assigned, however disciplines are the same for all students.
      *
-     * @param namePrefix groups name prefix.
-     * @param groupCount count of groups.
-     * @param groupSize count of students in each group.
+     * @param namePrefix  groups name prefix.
+     * @param groupCount  count of groups.
+     * @param groupSize   count of students in each group.
      * @param disciplines set of disciplines for which random marks are generated.
      * @return set of specified size with groups having specified name prefix and random students
      * with random marks assigned to each group.
@@ -142,7 +147,7 @@ public class UniversityUtil {
      * Each student has random marks assigned, however disciplines are the same for all students.
      *
      * @param countOfStudents count of students in the returned set.
-     * @param disciplines set of disciplines for which random marks are generated.
+     * @param disciplines     set of disciplines for which random marks are generated.
      * @return set of random students with random marks for specified disciplines.
      */
     protected static Set<Student> getRandomStudents(int countOfStudents, Set<Discipline> disciplines) {

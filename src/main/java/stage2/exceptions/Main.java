@@ -18,7 +18,7 @@ package stage2.exceptions;
 
 import java.util.*;
 
-import static stage2.exceptions.UniversityUtil.getRandomMarks;
+import static stage2.exceptions.UniversityUtil.*;
 
 public class Main {
 
@@ -38,7 +38,9 @@ public class Main {
 
         //Посчитать средний балл по всем предметам студента
         Student student = new Student("Bob", "", disciplines, getRandomMarks(disciplines));
-        UniversityUtil.printAverageMarksForStudent(student);
+        System.out.print(String.format(
+            "%s%nЗадание 1: \"Посчитать средний балл по всем предметам студента\"%n", getLine()));
+        printAverageMarksForStudent(student);
 
 
         //Посчитать средний балл по конкретному предмету в конкретной группе и на конкретном факультете
@@ -47,20 +49,21 @@ public class Main {
         Discipline discipline = new Discipline("Biology");
         int groupCount = 2;
         int groupSize = 3;
-        University university = UniversityUtil
-            .getRandomUniversity(universityName, facultyNames, groupCount, groupSize, disciplines);
-        System.out.println(university);
-        UniversityUtil.printAverageMarksByFacultyGroupDiscipline(university, facultyName, groupName, discipline);
+        University university = getRandomUniversity(universityName, facultyNames, groupCount, groupSize, disciplines);
+        System.out.print(String.format(
+            "%n%s%nЗадание 2: \"Посчитать средний балл по конкретному предмету" +
+                " в конкретной группе и на конкретном факультете\"%n%n%s%n", getLine(), university));
+        printAverageMarksByFacultyGroupDiscipline(university, facultyName, groupName, discipline);
 
 
         //Посчитать средний балл по предмету для всего университета
         groupCount = 1;
         groupSize = 1;
         discipline = new Discipline("Biology");
-        university = UniversityUtil
-            .getRandomUniversity(universityName, facultyNames, groupCount, groupSize, disciplines);
-        System.out.println(university);
-        UniversityUtil.printAverageMarksByDisciplineForEntireUniversity(university, discipline);
+        university = getRandomUniversity(universityName, facultyNames, groupCount, groupSize, disciplines);
+        System.out.print(String.format(
+            "%n%s%nЗадание 3: \"Посчитать средний балл по предмету для всего университета\"%n%n%s%n", getLine(), university));
+        printAverageMarkByDisciplineForEntireUniversity(university, discipline);
     }
 }
 
