@@ -18,6 +18,8 @@ package stage2.exceptions;
 
 import java.util.*;
 
+import static stage2.exceptions.UniversityUtil.getRandomMarks;
+
 public class Main {
 
     private static Set<Discipline> disciplines = new HashSet<>(Arrays.asList(
@@ -35,7 +37,8 @@ public class Main {
     public static void main(String[] args) {
 
         //Посчитать средний балл по всем предметам студента
-        UniversityUtil.printAverageMarksForStudent("Bob", disciplines);
+        Student student = new Student("Bob", "", disciplines, getRandomMarks(disciplines));
+        UniversityUtil.printAverageMarksForStudent(student);
 
 
         //Посчитать средний балл по конкретному предмету в конкретной группе и на конкретном факультете

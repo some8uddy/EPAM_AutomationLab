@@ -55,8 +55,7 @@ public class UniversityUtil {
         }
     }
 
-    static void printAverageMarksForStudent(String studentName, Set<Discipline> disciplines) {
-        Student student = new Student(studentName, "", disciplines, getRandomMarks(disciplines));
+    static void printAverageMarksForStudent(Student student) {
         System.out.println(String.format("%nStudent %s has following academic performance:%n" +
                 "    %s%n" +
                 "His average mark is %.2f%n" +
