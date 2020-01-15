@@ -39,8 +39,8 @@ public class Car implements Runnable {
 
     @Override
     public void run() {
+        Random rnd = new Random();
         while (isActive) {
-            Random rnd = new Random();
             int parkingTimeSeconds = rnd.nextInt(10);
             garage.parkInGarage(this);
             if (!isRedirected) {

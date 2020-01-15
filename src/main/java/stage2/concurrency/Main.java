@@ -11,16 +11,16 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
+    public static final int GARAGE_SIZE = 5;
+    public static final long MAX_WAITING_TIME_IN_QUEUE_MILLS = 1000 * 5;
+    public static final int CARS_COUNT = 15;
+
     public static void main(String[] args) throws InterruptedException {
         List<Car> cars = new ArrayList<>();
+        Garage garage = new Garage(GARAGE_SIZE, MAX_WAITING_TIME_IN_QUEUE_MILLS);
 
-        int garageSize = 5;
-        long maxWaitingTimeInQueueMills = 1000 * 5;
-        Garage garage = new Garage(garageSize, maxWaitingTimeInQueueMills);
-
-        int carsCount = 15;
         Random rnd = new Random();
-        for (int i = 0; i < carsCount; i++) {
+        for (int i = 0; i < CARS_COUNT; i++) {
             String carName = "Car" + i;
             Car car = new Car(carName, garage);
             cars.add(car);

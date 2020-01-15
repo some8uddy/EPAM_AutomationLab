@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Parking {
     private static final int COUNT_OF_PARKING_SPOTS = 5;
-    private static final int COUNT_CARS = 25;
+    private static final int COUNT_OF_CARS = 25;
     private static boolean[] parkingSpots;
     private static Semaphore SEMAPHORE;
     private static int countOfParkingSpotsLeft = COUNT_OF_PARKING_SPOTS;
@@ -67,7 +67,7 @@ public class Parking {
         SEMAPHORE = new Semaphore(COUNT_OF_PARKING_SPOTS, true);
 
         long maxWaitingTimeInQueueSeconds = 5;
-        for (int i = 1; i <= COUNT_CARS; i++) {
+        for (int i = 1; i <= COUNT_OF_CARS; i++) {
             new Thread(new Car("Car-" + i, maxWaitingTimeInQueueSeconds)).start();
             TimeUnit.MILLISECONDS.sleep(200);
         }
